@@ -32,7 +32,11 @@ const LoginPage = () => {
             className="password-input"
           />
           <span onClick={handleToggle} className="eye">
-            <img src={showPassword ? eye : eyeDisable} alt="Eye Icon" />
+            <img
+              src={showPassword ? eye : eyeDisable}
+              alt="Eye Icon"
+              className="eye-icon"
+            />
           </span>
         </div>
       </form>

@@ -52,3 +52,7 @@
 .password-input::placeholder {
   color: #c0c0c0;
 }
+
+.eye-icon {
+  cursor: pointer;
+}
