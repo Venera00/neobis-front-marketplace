@@ -6,7 +6,7 @@ import "./LoginPage.css";
 
 const LoginPage = () => {
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState();
+  const [showPassword, setShowPassword] = useState("");
 
   const handleToggle = () => {
     setShowPassword(!showPassword);
@@ -25,7 +25,7 @@ const LoginPage = () => {
         />
         <div className="password-input__wrapper flex space-between">
           <input
-            type={showPassword ? "password" : "text"}
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Пароль"
