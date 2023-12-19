@@ -5,7 +5,26 @@
   height: 70rem;
 }
 
+.login-form__wrapper {
+  flex-direction: column;
+}
+
 .login-form {
   flex-direction: column;
+  margin-top: 15rem;
   margin-right: 19rem;
+  padding-bottom: 18rem;
+}
+
+.login-link__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.login__link {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: #5458ea;
 }
