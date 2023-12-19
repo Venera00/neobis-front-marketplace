@@ -17,6 +17,13 @@
   justify-content: space-between;
 }
 
+.login-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 70rem;
+  height: 70rem;
+}
+
 .form-input {
   width: 33.5rem;
   height: 3.5rem;
