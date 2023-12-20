@@ -1,10 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import mainLoginImg from "../../assets/mainLoginImage.png";
 import goBackIcon from "../../assets/goBackIcon.svg";
+import eye from "../../assets/eye.svg";
+import eyeDisable from "../../assets/eyeDisable.svg";
 import "./SignUpPage.css";
 import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState("");
+  const [showConfirmPassword, setShowConfirmPassword] = useState("");
+  const [showPasswordInput, setShowPasswordInput] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const handleLoginChange = (e) => {
+    setLogin(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleNextClick = () => {
+    if (login.trim() !== "" && email.trim() !== "") {
+      setShowPasswordInput(true);
+    } else {
+      console.log("Enter login and email");
+    }
+  };
+
+  const handleToggle = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleToggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Login:", login);
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
+
   return (
     <div className="flex space-between">
       <div className="img-wrapper">
@@ -22,21 +64,78 @@ const SignUpPage = () => {
           </div>
         </div>
 
-        <form className="signup-form">
-          <input
-            type="text"
-            name="login"
-            placeholder="Имя пользователя"
-            className="form-input"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Почта"
-            className="form-input"
-          />
+        <form onSubmit={handleSubmit} className="signup-form">
+          {!showPasswordInput && (
+            <div>
+              <label>
+                <input
+                  type="text"
+                  name="login"
+                  placeholder="Имя пользователя"
+                  className="form-input"
+                  value={login}
+                  onChange={handleLoginChange}
+                />
+              </label>
 
-          <button className="signup-btn">Далее</button>
+              <label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Почта"
+                  className="form-input"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+              </label>
+            </div>
+          )}
+
+          {showPasswordInput && (
+            <div>
+              <div className="password-input__wrapper flex space-between">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Пароль"
+                  className="password-input"
+                />
+                <span onClick={handleToggle} className="eye">
+                  <img
+                    src={showPassword ? eye : eyeDisable}
+                    alt="Eye Icon"
+                    className="eye-icon"
+                  />
+                </span>
+              </div>
+
+              <div className="password-input__wrapper flex space-between">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={passwordConfirm}
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  placeholder="Потдтвердите пароль"
+                  className="password-input"
+                />
+                <span onClick={handleToggleConfirmPassword} className="eye">
+                  <img
+                    src={showConfirmPassword ? eye : eyeDisable}
+                    alt="Eye Icon"
+                    className="eye-icon"
+                  />
+                </span>
+              </div>
+            </div>
+          )}
+
+          {!showPasswordInput && (
+            <button onClick={handleNextClick} className="signup-btn">
+              Далее
+            </button>
+          )}
+
+          {showPasswordInput && <button type="submit">Далее</button>}
         </form>
       </div>
     </div>
