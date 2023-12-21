@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signup } from "../../api/index";
 import mainLoginImg from "../../assets/mainLoginImage.png";
 import goBackIcon from "../../assets/goBackIcon.svg";
 import eye from "../../assets/eye.svg";
 import eyeDisable from "../../assets/eyeDisable.svg";
 import "./SignUpPage.css";
-import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
   const [login, setLogin] = useState("");
@@ -14,6 +15,7 @@ const SignUpPage = () => {
   const [showPasswordInput, setShowPasswordInput] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const navigate = useNavigate();
 
   const handleLoginChange = (e) => {
     setLogin(e.target.value);
@@ -39,8 +41,22 @@ const SignUpPage = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const userInput = {
+        login: login,
+        email: email,
+        password: password,
+      };
+
+      const response = await signup(userInput);
+      navigate("/");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
 
     console.log("Login:", login);
     console.log("Email:", email);
