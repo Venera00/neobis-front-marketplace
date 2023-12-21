@@ -16,3 +16,13 @@ export const signup = async (data) => {
     console.log("Registration failed", error);
   }
 };
+
+export const login = async (data) => {
+  try {
+    const response = await instance.post("/login/", data);
+    console.log("Successfully logged in");
+  } catch (error) {
+    console.log("Login failed");
+    throw error;
+  }
+};

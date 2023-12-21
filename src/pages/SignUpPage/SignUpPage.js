@@ -52,7 +52,7 @@ const SignUpPage = () => {
       };
 
       const response = await signup(userInput);
-      navigate("/");
+      navigate("/"); // It's for now, should be modified
       console.log(response);
     } catch (error) {
       console.log(error);
