@@ -64,17 +64,17 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex space-between">
+    <div className="flex space-between main-container">
       <div className="img-wrapper">
         <img src={mainLoginImg} className="login-img" />
       </div>
 
       <div className="signup-content">
-        <div className="signup-text__wrapper flex">
+        <div className="signup-text__wrapper">
           <div className="signup-text flex">
-            <Link to="/" className="flex">
+            <Link to="/" className="flex signup-back__link">
               <img src={goBackIcon} />
-              <p>Назад</p>
+              <p className="back-link__text">Назад</p>
             </Link>
             <p className="signup-title">Регистрация</p>
           </div>
@@ -82,7 +82,7 @@ const SignUpPage = () => {
 
         <form onSubmit={handleSubmit} className="signup-form">
           {!showPasswordInput && (
-            <div>
+            <div className="form-inputs">
               <label>
                 <input
                   type="text"
@@ -108,7 +108,7 @@ const SignUpPage = () => {
           )}
 
           {showPasswordInput && (
-            <div>
+            <div className="password-inputs">
               <div className="password-input__wrapper flex space-between">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -146,12 +146,16 @@ const SignUpPage = () => {
           )}
 
           {!showPasswordInput && (
-            <button onClick={handleNextClick} className="signup-btn">
+            <button onClick={handleNextClick} className="signup-next-btn">
               Далее
             </button>
           )}
 
-          {showPasswordInput && <button type="submit">Далее</button>}
+          {showPasswordInput && (
+            <button type="submit" className="signup-btn">
+              Далее
+            </button>
+          )}
         </form>
       </div>
     </div>
