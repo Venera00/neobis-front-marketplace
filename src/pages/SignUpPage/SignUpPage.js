@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../api/index";
+import uservalidationSchema from "../../Schemas/UserRegistrationInput";
 import mainLoginImg from "../../assets/mainLoginImage.png";
 import goBackIcon from "../../assets/goBackIcon.svg";
 import eye from "../../assets/eye.svg";
@@ -52,7 +53,7 @@ const SignUpPage = () => {
       };
 
       const response = await signup(userInput);
-      navigate("/"); // It's for now, should be modified
+      // navigate("/"); // It's for now, should be modified
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -80,83 +81,94 @@ const SignUpPage = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="signup-form">
-          {!showPasswordInput && (
-            <div className="form-inputs">
-              <label>
-                <input
-                  type="text"
-                  name="login"
-                  placeholder="Имя пользователя"
-                  className="form-input"
-                  value={login}
-                  onChange={handleLoginChange}
-                />
-              </label>
-
-              <label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Почта"
-                  className="form-input"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-              </label>
-            </div>
-          )}
-
-          {showPasswordInput && (
-            <div className="password-inputs">
-              <div className="password-input__wrapper flex space-between">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Пароль"
-                  className="password-input"
-                />
-                <span onClick={handleToggle} className="eye">
-                  <img
-                    src={showPassword ? eye : eyeDisable}
-                    alt="Eye Icon"
-                    className="eye-icon"
+        <Formik
+          initialValues={{
+            login: "",
+            email: "",
+            password: "",
+            passwordConfirm: "",
+          }}
+          validationSchema={uservalidationSchema}
+          onSubmit={handleSubmit}
+        >
+          <form className="signup-form">
+            {!showPasswordInput && (
+              <div className="form-inputs">
+                <label>
+                  <input
+                    type="text"
+                    name="login"
+                    placeholder="Имя пользователя"
+                    className="form-input"
+                    value={login}
+                    onChange={handleLoginChange}
                   />
-                </span>
-              </div>
+                </label>
 
-              <div className="password-input__wrapper flex space-between">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  value={passwordConfirm}
-                  onChange={(e) => setPasswordConfirm(e.target.value)}
-                  placeholder="Потдтвердите пароль"
-                  className="password-input"
-                />
-                <span onClick={handleToggleConfirmPassword} className="eye">
-                  <img
-                    src={showConfirmPassword ? eye : eyeDisable}
-                    alt="Eye Icon"
-                    className="eye-icon"
+                <label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Почта"
+                    className="form-input"
+                    value={email}
+                    onChange={handleEmailChange}
                   />
-                </span>
+                </label>
               </div>
-            </div>
-          )}
+            )}
 
-          {!showPasswordInput && (
-            <button onClick={handleNextClick} className="signup-next-btn">
-              Далее
-            </button>
-          )}
+            {showPasswordInput && (
+              <div className="password-inputs">
+                <div className="password-input__wrapper flex space-between">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Пароль"
+                    className="password-input"
+                  />
+                  <span onClick={handleToggle} className="eye">
+                    <img
+                      src={showPassword ? eye : eyeDisable}
+                      alt="Eye Icon"
+                      className="eye-icon"
+                    />
+                  </span>
+                </div>
 
-          {showPasswordInput && (
-            <button type="submit" className="signup-btn">
-              Далее
-            </button>
-          )}
-        </form>
+                <div className="password-input__wrapper flex space-between">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    placeholder="Потдтвердите пароль"
+                    className="password-input"
+                  />
+                  <span onClick={handleToggleConfirmPassword} className="eye">
+                    <img
+                      src={showConfirmPassword ? eye : eyeDisable}
+                      alt="Eye Icon"
+                      className="eye-icon"
+                    />
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {!showPasswordInput && (
+              <button onClick={handleNextClick} className="signup-next-btn">
+                Далее
+              </button>
+            )}
+
+            {showPasswordInput && (
+              <button type="submit" className="signup-btn">
+                Далее
+              </button>
+            )}
+          </form>
+        </Formik>
       </div>
     </div>
   );
