@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../api/index";
-import uservalidationSchema from "../../Schemas/UserRegistrationInput";
+import userValidationSchema from "../../Schemas/UserRegistrationInput";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import mainLoginImg from "../../assets/mainLoginImage.png";
 import goBackIcon from "../../assets/goBackIcon.svg";
 import eye from "../../assets/eye.svg";
@@ -18,16 +19,8 @@ const SignUpPage = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
 
-  const handleLoginChange = (e) => {
-    setLogin(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleNextClick = () => {
-    if (login.trim() !== "" && email.trim() !== "") {
+  const handleNextClick = (values) => {
+    if (values.login !== "" && values.email !== "") {
       setShowPasswordInput(true);
     } else {
       console.log("Enter login and email");
@@ -83,91 +76,119 @@ const SignUpPage = () => {
 
         <Formik
           initialValues={{
-            login: "",
-            email: "",
+            login: login,
+            email: email,
             password: "",
             passwordConfirm: "",
           }}
-          validationSchema={uservalidationSchema}
+          validationSchema={userValidationSchema}
           onSubmit={handleSubmit}
         >
-          <form className="signup-form">
-            {!showPasswordInput && (
-              <div className="form-inputs">
-                <label>
-                  <input
-                    type="text"
-                    name="login"
-                    placeholder="Имя пользователя"
-                    className="form-input"
-                    value={login}
-                    onChange={handleLoginChange}
-                  />
-                </label>
-
-                <label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Почта"
-                    className="form-input"
-                    value={email}
-                    onChange={handleEmailChange}
-                  />
-                </label>
-              </div>
-            )}
-
-            {showPasswordInput && (
-              <div className="password-inputs">
-                <div className="password-input__wrapper flex space-between">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Пароль"
-                    className="password-input"
-                  />
-                  <span onClick={handleToggle} className="eye">
-                    <img
-                      src={showPassword ? eye : eyeDisable}
-                      alt="Eye Icon"
-                      className="eye-icon"
+          {({ values, errors, touched, handleBlur, handleChange }) => (
+            <Form className="signup-form">
+              {!showPasswordInput && (
+                <div className="form-inputs">
+                  <label>
+                    <Field
+                      type="text"
+                      name="login"
+                      value={values.login}
+                      placeholder="Имя пользователя"
+                      className="form-input"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                  </span>
-                </div>
-
-                <div className="password-input__wrapper flex space-between">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    value={passwordConfirm}
-                    onChange={(e) => setPasswordConfirm(e.target.value)}
-                    placeholder="Потдтвердите пароль"
-                    className="password-input"
-                  />
-                  <span onClick={handleToggleConfirmPassword} className="eye">
-                    <img
-                      src={showConfirmPassword ? eye : eyeDisable}
-                      alt="Eye Icon"
-                      className="eye-icon"
+                    <ErrorMessage
+                      name="login"
+                      component="div"
+                      className="error-message"
                     />
-                  </span>
+                  </label>
+
+                  <label>
+                    <Field
+                      type="email"
+                      name="email"
+                      value={values.email}
+                      placeholder="Почта"
+                      className="form-input"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="error-message"
+                    />
+                  </label>
                 </div>
-              </div>
-            )}
+              )}
 
-            {!showPasswordInput && (
-              <button onClick={handleNextClick} className="signup-next-btn">
-                Далее
-              </button>
-            )}
+              {showPasswordInput && (
+                <div className="password-inputs">
+                  <div className="password-input__wrapper flex space-between">
+                    <Field
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      placeholder="Пароль"
+                      className="password-input"
+                    />
+                    <span onClick={handleToggle} className="eye">
+                      <img
+                        src={showPassword ? eye : eyeDisable}
+                        alt="Eye Icon"
+                        className="eye-icon"
+                      />
+                    </span>
+                  </div>
+                  {errors.password && touched.password && (
+                    <div className="error-message">{errors.password}</div>
+                  )}
 
-            {showPasswordInput && (
-              <button type="submit" className="signup-btn">
-                Далее
-              </button>
-            )}
-          </form>
+                  <div className="password-input__wrapper flex space-between">
+                    <Field
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="passwordConfirm"
+                      value={values.passwordConfirm}
+                      onChange={handleChange}
+                      placeholder="Потдтвердите пароль"
+                      className="password-input"
+                    />
+                    <span onClick={handleToggleConfirmPassword} className="eye">
+                      <img
+                        src={showConfirmPassword ? eye : eyeDisable}
+                        alt="Eye Icon"
+                        className="eye-icon"
+                      />
+                    </span>
+                  </div>
+                  {errors.passwordConfirm && touched.passwordConfirm && (
+                    <div className="error-message">
+                      {errors.passwordConfirm}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {!showPasswordInput && (
+                <button
+                  onClick={handleNextClick}
+                  type="button"
+                  className="signup-next-btn"
+                >
+                  Далее
+                </button>
+              )}
+
+              {showPasswordInput && (
+                <button type="submit" className="signup-btn">
+                  Далее
+                </button>
+              )}
+            </Form>
+          )}
         </Formik>
       </div>
     </div>
