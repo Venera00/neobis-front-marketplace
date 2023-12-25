@@ -36,8 +36,6 @@ const SignUpPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
     try {
       const userInput = {
         login: login,

@@ -9,7 +9,7 @@ const instance = axios.create({
 
 export const signup = async (data) => {
   try {
-    const response = await instance.post("/register/", data);
+    const response = await instance.post("/auth/register/", data);
     console.log("Successfully registered");
     return response.data;
   } catch (error) {
@@ -19,7 +19,7 @@ export const signup = async (data) => {
 
 export const login = async (data) => {
   try {
-    const response = await instance.post("/login/", data);
+    const response = await instance.post("/auth/login/", data);
     console.log("Successfully logged in");
   } catch (error) {
     console.log("Login failed");
