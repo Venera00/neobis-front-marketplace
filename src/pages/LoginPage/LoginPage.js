@@ -41,6 +41,7 @@ const LoginPage = () => {
               />
             </span>
           </div>
+          <button className="login-btn">Войти</button>
         </form>
         <div className="login-link__wrapper">
           <Link to="/signup" className="login__link">

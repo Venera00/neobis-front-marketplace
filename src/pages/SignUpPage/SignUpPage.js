@@ -181,7 +181,7 @@ const SignUpPage = () => {
               )}
 
               {showPasswordInput && (
-                <button type="submit" className="signup-btn">
+                <button type="submit" className={`signup-btn`}>
                   Далее
                 </button>
               )}
