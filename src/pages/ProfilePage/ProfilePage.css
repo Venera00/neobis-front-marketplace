@@ -1,0 +1,9 @@
+.profile-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.user-wrapper {
+  background-color: #f7f6f9;
+  height: 72.5rem;
+}
