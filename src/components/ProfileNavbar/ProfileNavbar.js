@@ -10,8 +10,8 @@ import "./ProfileNavbar.css";
 const profileNavbar = ({ username, email }) => {
   return (
     <div className="profile-menu">
-      <div>
-        <img src={profileAvatar} />
+      <div className="username-info">
+        <img src={profileAvatar} alt="User avatar" />
         <div className="username-wrappers">
           <h4 className="username">{username}</h4>
           <p className="email">{email}</p>
@@ -19,30 +19,32 @@ const profileNavbar = ({ username, email }) => {
       </div>
 
       <Link className="profile-link">
-        <div className="profile-item">
-          <div className="item-info">
-            <img src={favorites} />
-            <p>Понравившиеся</p>
+        <div className="profile-item flex">
+          <div className="item-info flex">
+            <img src={favorites} alt="Favorites" />
+            <p className="item-title">Понравившиеся</p>
           </div>
-          <img src={profileArrow} />
+          <img src={profileArrow} alt="An arrow" />
         </div>
       </Link>
+
       <Link className="profile-link">
         <div className="profile-item">
-          <div className="item-info">
-            <img src={myGoods} />
-            <p>Мои товары</p>
+          <div className="item-info flex">
+            <img src={myGoods} alt="My goods" />
+            <p className="item-title">Мои товары</p>
           </div>
-          <img src={profileArrow} />
+          <img src={profileArrow} alt="An arrow" />
         </div>
       </Link>
-      <Link className="profile-link">
-        <div className="profile-item">
-          <div className="item-info">
-            <img src={logout} />
-            <p>Выйти</p>
+
+      <Link to="/" className="profile-link">
+        <div className="profile-item logout">
+          <div className="item-info flex">
+            <img src={logout} alt="Logout" />
+            <p className="item-title">Выйти</p>
           </div>
-          <img src={profileArrow} />
+          <img src={profileArrow} alt="" An arrow />
         </div>
       </Link>
     </div>

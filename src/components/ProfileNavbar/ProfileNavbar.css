@@ -2,7 +2,39 @@
   width: 54rem;
 }
 
+.username-info {
+  margin-bottom: 1.3rem;
+}
+
+.profile-menu {
+  margin: 3rem;
+}
+
 .profile-item {
   display: flex;
   justify-content: space-between;
+}
+
+.item-info {
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-link {
+  text-decoration: none;
+}
+
+.profile-link:hover,
+.profile-link:active {
+  background-color: #f7f6f9;
+}
+
+.logout {
+  margin-top: 3.5rem;
+}
+
+.item-title {
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #494949;
 }
