@@ -41,10 +41,11 @@ const SignUpPage = () => {
         login: login,
         email: email,
         password: password,
+        passwordConfirm: passwordConfirm,
       };
 
       const response = await signup(userInput);
-      // navigate("/"); // It's for now, should be modified
+      navigate("/profile");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -76,8 +77,8 @@ const SignUpPage = () => {
           initialValues={{
             login: login,
             email: email,
-            password: "",
-            passwordConfirm: "",
+            password: password,
+            passwordConfirm: passwordConfirm,
           }}
           validationSchema={userValidationSchema}
           onSubmit={handleSubmit}
