@@ -7,3 +7,41 @@
   background-color: #f7f6f9;
   height: 72.5rem;
 }
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3.4rem;
+  gap: 1.3rem;
+}
+
+.profile-form input {
+  width: 62rem;
+  height: 3.2rem;
+  outline: none;
+  border: none;
+  font-weight: 400;
+  font-size: 1.6rem;
+  padding-left: 1rem;
+}
+
+.profile-form input::placeholder {
+  color: #c0c0c0;
+}
+
+.choose-photo {
+  flex-direction: column;
+  text-decoration: none;
+  margin-top: 6.4rem;
+}
+
+.choose-photo p {
+  color: #5458ea;
+  font-size: 1.6rem;
+  font-weight: 400;
+  padding-top: 1.2rem;
+}
+
+.choose-photo {
+  align-items: center;
+}

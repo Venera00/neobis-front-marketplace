@@ -18,19 +18,22 @@ const ProfilePage = ({ username, email }) => {
           <p className="signup-title">Профиль</p>
         </div>
 
-        <Link className="choose-photo">
+        <Link className="choose-photo flex">
           <img src={profileAvatar} />
           <p>Выбрать фотографию</p>
         </Link>
 
-        <form>
-          <input type="text" placeholder="Имя" />
+        <form className="profile-form flex">
+          <input
+            type="text"
+            placeholder="Имя"
+            onChange={(e) => e.target.value}
+          />
           <input type="text" placeholder="Фамилия" />
-          <input type="text" value={username} />
           <input type="date" placeholder="Дата рождения" />
+          <div className="add-mobile ">Добавить номер</div>
         </form>
 
-        <div>Добавить номер</div>
         <p>{email}</p>
       </div>
     </div>

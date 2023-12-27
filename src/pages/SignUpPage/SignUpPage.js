@@ -47,10 +47,10 @@ const SignUpPage = () => {
     onSubmit: async (values) => {
       try {
         const userInput = {
-          login: "",
-          email: "",
-          password: "",
-          passwordConfirm: "",
+          login: values.login,
+          email: values.email,
+          password: values.password,
+          passwordConfirm: values.passwordConfirm,
         };
 
         const response = await signup(userInput);
@@ -62,36 +62,13 @@ const SignUpPage = () => {
         console.log(error);
       }
 
-      console.log("Login:", login);
-      console.log("Email:", email);
-      console.log("Password:", password);
+      console.log("Login:", values.login);
+      console.log("Email:", values.email);
+      console.log("Password:", values.password);
     },
   });
 
   const { values, errors, touched, handleBlur, handleChange } = formik;
-
-  // const handleSubmit = async (e) => {
-  //   try {
-  //     const userInput = {
-  //       login: "",
-  //       email: "",
-  //       password: "",
-  //       passwordConfirm: "",
-  //     };
-
-  //     const response = await signup(userInput);
-  //     if (response && response.success) {
-  //       navigate("/profile");
-  //       console.log(response);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  //   console.log("Login:", login);
-  //   console.log("Email:", email);
-  //   console.log("Password:", password);
-  // };
 
   return (
     <div className="flex space-between main-container">
