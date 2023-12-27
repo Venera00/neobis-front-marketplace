@@ -26,3 +26,20 @@ export const login = async (data) => {
     throw error;
   }
 };
+
+export const accessToken = async (refreshToken) => {
+  try {
+    const response = await instance.post("/auth/token/refresh/", {
+      refreshToken: refreshToken,
+    });
+    const newAccessToken = response.data.accessToken;
+    // Handle store
+
+    localStorage.setItem("accessToken", newAccessToken);
+
+    return newAccessToken;
+  } catch (error) {
+    console.log("Token refresh failed", error);
+    throw error;
+  }
+};
