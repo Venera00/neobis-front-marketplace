@@ -1,0 +1,39 @@
+.main-nav {
+  margin: 2.4rem 4.2rem;
+}
+
+.logo-wrapper {
+  gap: 0.8rem;
+}
+
+.icon-title {
+  color: #000000;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.nav-user__info {
+  gap: 1.6rem;
+}
+
+.username-wrapper {
+  gap: 1.2rem;
+}
+
+.nav-btn {
+  width: 21.5rem;
+  height: 4.4rem;
+  background-color: #5458ea;
+  border-radius: 8rem;
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.username-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #494949;
+}
