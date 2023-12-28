@@ -15,6 +15,46 @@
   gap: 1.3rem;
 }
 
+.profile-img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+}
+
+.choose-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+input[type="file"] {
+  color: transparent;
+  position: absolute;
+  top: -9999px;
+}
+
+input[type="file"] + label::after {
+  content: "Файл не выбран";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  line-height: 1.5;
+  visibility: hidden;
+}
+
+input[type="file"] + label {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #5458ea;
+  text-align: center;
+}
+
 .profile-form input {
   width: 62rem;
   height: 3.2rem;
