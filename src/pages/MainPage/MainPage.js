@@ -1,4 +1,5 @@
 import React from "react";
+import ProductCard from "../../components/ProductCard/ProductCard";
 import mobiMarketIcon from "../../assets/mobiMarcetIcon.svg";
 import profileAvatar from "../../assets/profileAvatar.svg";
 import "./MainPage.css";
@@ -19,7 +20,9 @@ const MainPage = (username) => {
           </div>
         </div>
       </div>
-      <div className="cards-container"></div>
+      <div className="cards-container">
+        <ProductCard />
+      </div>
     </div>
   );
 };
