@@ -5,7 +5,7 @@ import mobiMarketIcon from "../../assets/mobiMarcetIcon.svg";
 import profileAvatar from "../../assets/profileAvatar.svg";
 import "./MainPage.css";
 
-const MainPage = (username) => {
+const MainPage = ({ username }) => {
   return (
     <div>
       <div className="main-nav flex space-between">
@@ -29,6 +29,8 @@ const MainPage = (username) => {
             imgSrc={product.imgSrc}
             title={product.title}
             price={product.price}
+            Heart={product.Heart}
+            heartTitle={product.heartTitle}
           />
         ))}
       </div>

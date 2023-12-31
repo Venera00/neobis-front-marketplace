@@ -37,3 +37,8 @@
   font-weight: 400;
   color: #494949;
 }
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
