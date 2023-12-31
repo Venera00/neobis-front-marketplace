@@ -1,5 +1,6 @@
 import React from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import ProductCardData from "../../components/ProductCard/ProductCardData";
 import mobiMarketIcon from "../../assets/mobiMarcetIcon.svg";
 import profileAvatar from "../../assets/profileAvatar.svg";
 import "./MainPage.css";
@@ -21,7 +22,15 @@ const MainPage = (username) => {
         </div>
       </div>
       <div className="cards-container">
-        <ProductCard />
+        {ProductCardData.map((product) => (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            imgSrc={product.imgSrc}
+            title={product.title}
+            price={product.price}
+          />
+        ))}
       </div>
     </div>
   );

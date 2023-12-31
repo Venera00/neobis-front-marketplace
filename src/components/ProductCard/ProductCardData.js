@@ -1,7 +1,7 @@
 import bmw from "../../assets/bmw.svg";
 import sneakers from "../../assets/sneakers.svg";
 
-const cardData = [
+const ProductCardData = [
   { id: 1, imgSrc: bmw, title: "BMW M4 Coupe: A Two-Door", price: "23000$" },
   { id: 2, imgSrc: bmw, title: "BMW M4 Coupe: A Two-Door", price: "23000$" },
   { id: 3, imgSrc: bmw, title: "BMW M4 Coupe: A Two-Door", price: "23000$" },
@@ -17,4 +17,4 @@ const cardData = [
   { id: 13, imgSrc: sneakers, title: "Adidas Yeezy 500", price: "23000$" },
 ];
 
-export default cardData;
+export default ProductCardData;
