@@ -18,6 +18,7 @@
 
 .username-wrapper {
   gap: 1.2rem;
+  text-decoration: none;
 }
 
 .nav-btn {
