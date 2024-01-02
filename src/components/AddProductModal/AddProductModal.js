@@ -3,7 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import addImg from "../../assets/addImg.svg";
 import "./AddProductModal.css";
 
-const AddProductModal = ({ closeModal }) => {
+const AddProductModal = ({ toggleModal }) => {
+  const [files, setFiles] = useState(null);
+
   const initialValues = {
     image: null,
     price: null,
@@ -12,20 +14,27 @@ const AddProductModal = ({ closeModal }) => {
     fullDescription: "",
   };
 
-  const handleImage = (event, setFieldValue) => {
-    const selectedImage = event.currentTarget.files[0];
-    setFieldValue("image", selectedImage);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFiles(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (values) => {
     // there will be requests
-    closeModal();
+    toggleModal();
   };
+
   return (
     <div className="modal flex">
-      <div className="modal-overlay flex" onClick={closeModal}>
+      <div className="modal-overlay flex" onClick={toggleModal}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <span className="close-modal" onClick={closeModal}>
+          <span className="close-modal" onClick={toggleModal}>
             &times;
           </span>
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -37,12 +46,23 @@ const AddProductModal = ({ closeModal }) => {
                     type="file"
                     name="image"
                     accept="image/*"
-                    onChange={(e) => handleImage(e, setFieldValue)}
+                    multiple
+                    onChange={handleImageChange}
                     required
                   />
                   <label htmlFor="input-img" className="img-input__label">
-                    <img src={addImg} alt="Add image" />
+                    <img src={addImg} alt="Add photo" />
                   </label>
+
+                  {files && (
+                    <div className="flex">
+                      <img
+                        src={files}
+                        alt="Uploaded file"
+                        className="uploaded-img"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <Field type="number" name="price" placeholder="Цена" />
