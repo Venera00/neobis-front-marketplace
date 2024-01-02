@@ -61,10 +61,12 @@ const ProfilePage = ({ username, email }) => {
           />
           <input type="text" placeholder="Фамилия" />
           <input type="date" placeholder="Дата рождения" />
-          <div className="add-mobile ">Добавить номер</div>
+          <div className="add-mobile">Добавить номер</div>
+
+          <input type="email" placeholder="Email" />
         </form>
 
-        <p>{email}</p>
+        <button className="profile-btn">Coхранить</button>
       </div>
     </div>
   );

@@ -38,6 +38,16 @@ export const addProduct = async (data) => {
   }
 };
 
+export const addUserInfo = async (data) => {
+  try {
+    const response = await instance.put("/auth/profile-update/");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export const accessToken = async (refreshToken) => {
   try {
     const response = await instance.post("/auth/token/refresh/", {
