@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileNavbar from "../../components/ProfileNavbar/ProfileNavbar";
+import addUserInfo from "../../api/index";
+import AddPhoneModal from "../../components/AddPhoneModal/AddPhoneModal";
+import LogoutModal from "../../components/LogoutModal";
 import goBackIcon from "../../assets/goBackIcon.svg";
 import "./ProfilePage.css";
 import profileAvatar from "../../assets/profileAvatar.svg";
@@ -64,9 +67,8 @@ const ProfilePage = ({ username, email }) => {
           <div className="add-mobile">Добавить номер</div>
 
           <input type="email" placeholder="Email" />
+          <button className="profile-btn">Coхранить</button>
         </form>
-
-        <button className="profile-btn">Coхранить</button>
       </div>
     </div>
   );
