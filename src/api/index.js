@@ -21,8 +21,19 @@ export const login = async (data) => {
   try {
     const response = await instance.post("/auth/login/", data);
     console.log("Successfully logged in");
+    return response.data;
   } catch (error) {
     console.log("Login failed");
+    throw error;
+  }
+};
+
+export const addProduct = async (data) => {
+  try {
+    const response = await instance.post("/products/create-update-list/", data);
+    return response.data;
+  } catch (error) {
+    console.log("Error in adding product");
     throw error;
   }
 };

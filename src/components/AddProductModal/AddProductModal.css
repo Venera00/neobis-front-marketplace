@@ -98,3 +98,9 @@ input[type="file"] {
   color: #9ca4ab;
   background-color: #f7f7f8;
 }
+
+.error-msg {
+  color: red;
+  font-size: 1.4rem;
+  font-weight: 400;
+}

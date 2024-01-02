@@ -1,12 +1,19 @@
 import { useState } from "react";
 import AddProductValidationSchema from "../../Schemas/AddProductValidationSchema";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { addProduct } from "../../api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import addImg from "../../assets/addImg.svg";
 import "./AddProductModal.css";
 
 const AddProductModal = ({ toggleModal }) => {
   const [files, setFiles] = useState(null);
-  const [isFormFilled, setIsFormFilled] = useState(false);
+  const [image, setImage] = useState(null);
+  // const [isFormFilled, setIsFormFilled] = useState(false);
+
+  const navigate = useNavigate();
 
   const initialValues = {
     image: null,
@@ -15,29 +22,38 @@ const AddProductModal = ({ toggleModal }) => {
     briefDescription: "",
     fullDescription: "",
   };
-  // validationSchema: AddProductValidationSchema;
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setFiles(e.target.result);
+        setImage(e.target.result);
       };
       reader.readAsDataURL(file);
+      setFiles(file);
     }
   };
 
-  const handleInputChange = (values) => {
-    const isAllFieldsFilled = Object.values(values).every(
-      (val) => val !== null && val !== ""
-    );
-    setIsFormFilled(isAllFieldsFilled);
-  };
+  const handleSubmit = async (values, actions) => {
+    try {
+      const response = await addProduct({
+        image: image,
+        price: values.price,
+        productName: values.productName,
+        briefDescription: values.briefDescription,
+        fullDescription: values.fullDescription,
+      });
+      console.log(response);
 
-  const handleSubmit = async (values) => {
-    // there will be requests
-    // toggleModal();
+      toast.success("Товар добавлен");
+
+      navigate.push("/profile"); //The path should be changed
+    } catch (error) {
+      console.log(error);
+      toast.error("Не удалось добавить товар");
+    }
+    toggleModal();
   };
 
   return (
@@ -56,10 +72,10 @@ const AddProductModal = ({ toggleModal }) => {
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
-            className="formik"
+            validationSchema={AddProductValidationSchema}
           >
-            {({ values }) => (
-              <Form className="form " onChange={() => handleInputChange}>
+            {({ values, handleChange, handleBlur, isSubmitting, isValid }) => (
+              <Form className="form ">
                 <div className="add-img flex">
                   <input
                     id="input-img"
@@ -68,16 +84,15 @@ const AddProductModal = ({ toggleModal }) => {
                     accept="image/*"
                     multiple
                     onChange={handleImageChange}
-                    required
                   />
                   <label htmlFor="input-img" className="img-input__label">
                     <img src={addImg} alt="Add photo" />
                   </label>
 
-                  {files && (
+                  {image && (
                     <div className="flex">
                       <img
-                        src={files}
+                        src={image}
                         alt="Uploaded file"
                         className="uploaded-img"
                       />
@@ -90,7 +105,12 @@ const AddProductModal = ({ toggleModal }) => {
                   name="price"
                   placeholder="Цена"
                   className="form-input"
-                  required
+                  onBlur={handleBlur}
+                />
+                <ErrorMessage
+                  name="price"
+                  component="div"
+                  className="error-msg"
                 />
 
                 <Field
@@ -99,24 +119,40 @@ const AddProductModal = ({ toggleModal }) => {
                   placeholder="Название"
                   className="form-input"
                 />
+                <ErrorMessage
+                  name="productName"
+                  component="div"
+                  className="error-msg"
+                />
+
                 <Field
                   type="text"
                   name="briefDescription"
                   placeholder="Краткое описание"
                   className="form-input"
                 />
+                <ErrorMessage
+                  name="briefDescription"
+                  component="div"
+                  className="error-msg"
+                />
+
                 <Field
                   type="text"
                   name="fullDescription"
                   placeholder="Полное описание"
                   className="form-input"
                 />
+                <ErrorMessage
+                  name="fullDescription"
+                  component="div"
+                  className="error-msg"
+                />
 
                 <button
                   type="submit"
-                  className={`form-btn ${isFormFilled ? "filled" : "unfilled"}`}
-                  disabled={!isFormFilled}
-                  handleSubmit
+                  className={`form-btn ${isValid ? "filled" : "unfilled"}`}
+                  disabled={isSubmitting}
                 >
                   Добавить
                 </button>
