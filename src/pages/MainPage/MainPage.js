@@ -26,7 +26,7 @@ const MainPage = ({ username }) => {
             <button onClick={toggleModal} className="nav-btn">
               Подать обьявление
             </button>
-            {modal && <AddProductModal />}
+            {modal && <AddProductModal toggleModal={toggleModal} />}
           </div>
           <Link to="/profile" className="username-wrapper flex">
             <p className="username-title">Venera</p>

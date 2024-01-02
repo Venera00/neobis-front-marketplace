@@ -16,8 +16,8 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState("");
   const [showPasswordInput, setShowPasswordInput] = useState(false);
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
 
   const handleNextClick = (values) => {

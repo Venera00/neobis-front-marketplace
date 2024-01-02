@@ -1,10 +1,12 @@
 import { useState } from "react";
+import AddProductValidationSchema from "../../Schemas/AddProductValidationSchema";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import addImg from "../../assets/addImg.svg";
 import "./AddProductModal.css";
 
 const AddProductModal = ({ toggleModal }) => {
   const [files, setFiles] = useState(null);
+  const [isFormFilled, setIsFormFilled] = useState(false);
 
   const initialValues = {
     image: null,
@@ -13,6 +15,7 @@ const AddProductModal = ({ toggleModal }) => {
     briefDescription: "",
     fullDescription: "",
   };
+  // validationSchema: AddProductValidationSchema;
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -25,21 +28,38 @@ const AddProductModal = ({ toggleModal }) => {
     }
   };
 
+  const handleInputChange = (values) => {
+    const isAllFieldsFilled = Object.values(values).every(
+      (val) => val !== null && val !== ""
+    );
+    setIsFormFilled(isAllFieldsFilled);
+  };
+
   const handleSubmit = async (values) => {
     // there will be requests
-    toggleModal();
+    // toggleModal();
   };
 
   return (
     <div className="modal flex">
       <div className="modal-overlay flex" onClick={toggleModal}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <span className="close-modal" onClick={toggleModal}>
+          <span
+            className="close-modal"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleModal();
+            }}
+          >
             &times;
           </span>
-          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            {({ setFieldValue }) => (
-              <Form className="form ">
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            className="formik"
+          >
+            {({ values }) => (
+              <Form className="form " onChange={() => handleInputChange}>
                 <div className="add-img flex">
                   <input
                     id="input-img"
@@ -65,20 +85,41 @@ const AddProductModal = ({ toggleModal }) => {
                   )}
                 </div>
 
-                <Field type="number" name="price" placeholder="Цена" />
-                <Field type="text" name="productName" placeholder="Название" />
                 <Field
-                  type="text"
-                  name="productName"
-                  placeholder="Краткое описание"
-                />
-                <Field
-                  type="text"
-                  name="productName"
-                  placeholder="Полное описание"
+                  type="number"
+                  name="price"
+                  placeholder="Цена"
+                  className="form-input"
+                  required
                 />
 
-                <button type="submit">Добавить</button>
+                <Field
+                  type="text"
+                  name="productName"
+                  placeholder="Название"
+                  className="form-input"
+                />
+                <Field
+                  type="text"
+                  name="briefDescription"
+                  placeholder="Краткое описание"
+                  className="form-input"
+                />
+                <Field
+                  type="text"
+                  name="fullDescription"
+                  placeholder="Полное описание"
+                  className="form-input"
+                />
+
+                <button
+                  type="submit"
+                  className={`form-btn ${isFormFilled ? "filled" : "unfilled"}`}
+                  disabled={!isFormFilled}
+                  handleSubmit
+                >
+                  Добавить
+                </button>
               </Form>
             )}
           </Formik>
