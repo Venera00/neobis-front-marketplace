@@ -1,0 +1,51 @@
+.modal,
+.modal-overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  display: block;
+}
+
+.modal {
+  width: 56.4rem;
+  height: 46.2rem;
+  display: block;
+}
+
+.modal-overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+
+.modal-content {
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.logout-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #292929;
+}
+
+.btn-modal {
+  width: 28rem;
+  height: 4.4rem;
+  border: none;
+  border-radius: 1.6rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.btn-logout {
+  background-color: #5d5fef;
+  color: #ffffff;
+}
+
+.btn-cancel {
+  color: #494949;
+}

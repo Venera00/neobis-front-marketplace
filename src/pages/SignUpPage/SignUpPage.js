@@ -21,7 +21,7 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   const handleNextClick = (values) => {
-    if (values.login !== "" && values.email !== "") {
+    if (values.username !== "" && values.email !== "") {
       setShowPasswordInput(true);
     } else {
       console.log("Enter login and email");
@@ -38,17 +38,17 @@ const SignUpPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      login: "",
+      username: "",
       email: "",
       password: "",
       passwordConfirm: "",
     },
     validationSchema: userValidationSchema,
 
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         const userInput = {
-          login: values.login,
+          username: values.username,
           email: values.email,
           password: values.password,
           passwordConfirm: values.passwordConfirm,
@@ -56,14 +56,16 @@ const SignUpPage = () => {
 
         const response = await signup(userInput);
         if (response && response.success) {
-          navigate("/profile");
+          navigate("/main");
           console.log(response);
+
+          resetForm();
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.response);
       }
 
-      console.log("Login:", values.login);
+      console.log("Username:", values.username);
       console.log("Email:", values.email);
       console.log("Password:", values.password);
     },
@@ -99,15 +101,15 @@ const SignUpPage = () => {
                 <label>
                   <Field
                     type="text"
-                    name="login"
-                    value={values.login}
+                    name="username"
+                    value={values.username}
                     placeholder="Имя пользователя"
                     className="form-input"
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
                   <ErrorMessage
-                    name="login"
+                    name="username"
                     component="div"
                     className="error-message"
                   />

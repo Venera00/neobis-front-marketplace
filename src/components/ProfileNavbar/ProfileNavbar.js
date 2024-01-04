@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import LogoutModal from "../LogoutModal/LogoutModal";
 import profileAvatar from "../../assets/profileAvatar.svg";
 import favorites from "../../assets/favorites.svg";
 import myGoods from "../../assets/myGoods.svg";
@@ -7,7 +8,13 @@ import logout from "../../assets/logout.svg";
 import profileArrow from "../../assets/profileArrow.svg";
 import "./ProfileNavbar.css";
 
-const profileNavbar = ({ username, email }) => {
+const ProfileNavbar = ({ username, email }) => {
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
   return (
     <div className="profile-menu">
       <div className="username-info">
@@ -38,17 +45,17 @@ const profileNavbar = ({ username, email }) => {
         </div>
       </Link>
 
-      <Link to="/" className="profile-link">
-        <div className="profile-item logout">
-          <div className="item-info flex">
-            <img src={logout} alt="Logout" />
-            <p className="item-title">Выйти</p>
-          </div>
-          <img src={profileArrow} alt="" An arrow />
+      <div className="profile-item logout" onClick={toggleModal}>
+        <div className="item-info flex">
+          <img src={logout} alt="Logout" />
+          <p className="item-title">Выйти</p>
         </div>
-      </Link>
+        <img src={profileArrow} alt="" An arrow />
+      </div>
+
+      {modal && <LogoutModal toggleModal={toggleModal} />}
     </div>
   );
 };
 
-export default profileNavbar;
+export default ProfileNavbar;

@@ -1,5 +1,5 @@
 import React from "react";
-import ".AddPhoneModal.css";
+import "./AddPhoneModal.css";
 
 const AddPhoneModal = () => {
   return <div></div>;

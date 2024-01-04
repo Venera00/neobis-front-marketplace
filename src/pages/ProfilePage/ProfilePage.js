@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ProfileNavbar from "../../components/ProfileNavbar/ProfileNavbar";
 import addUserInfo from "../../api/index";
 import AddPhoneModal from "../../components/AddPhoneModal/AddPhoneModal";
-import LogoutModal from "../../components/LogoutModal";
+import LogoutModal from "../../components/LogoutModal/LogoutModal";
 import goBackIcon from "../../assets/goBackIcon.svg";
 import "./ProfilePage.css";
 import profileAvatar from "../../assets/profileAvatar.svg";
