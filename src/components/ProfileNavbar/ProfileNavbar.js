@@ -15,6 +15,10 @@ const ProfileNavbar = ({ username, email }) => {
     setModal(!modal);
   };
 
+  const handleCancelClick = () => {
+    setModal(false);
+  };
+
   return (
     <div className="profile-menu">
       <div className="username-info">
@@ -53,7 +57,17 @@ const ProfileNavbar = ({ username, email }) => {
         <img src={profileArrow} alt="" An arrow />
       </div>
 
-      {modal && <LogoutModal toggleModal={toggleModal} />}
+      {modal && (
+        <LogoutModal
+          onLogout={null}
+          onCancel={handleCancelClick}
+          toggleModal={toggleModal}
+        >
+          <p className="logout-title">
+            Вы действительно хотите выйти с приложения?
+          </p>
+        </LogoutModal>
+      )}
     </div>
   );
 };
