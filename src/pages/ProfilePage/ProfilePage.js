@@ -41,13 +41,16 @@ const ProfilePage = () => {
     };
   });
 
-  function handleClick() {
-    // const formData = new FormData();
-    // formData.append("image", image);
-    // axios.post("url", formData).then((res) => {
-    //   console.log(res);
-    // });
-  }
+  const handleClick = async () => {
+    try {
+      const response = await addUserInfo(data);
+
+      console.log(response);
+      // Add toastify
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="profile-wrapper">
@@ -85,7 +88,9 @@ const ProfilePage = () => {
 
           {/* <input type="email" placeholder="Email" /> */}
           <p className="user-email">{email}</p>
-          <button className="profile-btn">Coхранить</button>
+          <button className="profile-btn" onClick={handleClick}>
+            Coхранить
+          </button>
         </form>
       </div>
     </div>
