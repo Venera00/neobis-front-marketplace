@@ -18,6 +18,12 @@ const ProfilePage = () => {
   const email = useSelector((state) => state.profile.email);
   const userImage = useSelector((state) => state.profile.userImage);
 
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
   const handleImage = (e) => {
     const selectedImg = e.target.files[0];
     setImage(selectedImg);
@@ -72,7 +78,10 @@ const ProfilePage = () => {
           />
           <input type="text" placeholder="Фамилия" />
           <input type="date" placeholder="Дата рождения" />
-          <div className="add-mobile">Добавить номер</div>
+          <div className="add-mobile" onClick={toggleModal}>
+            Добавить номер
+          </div>
+          {modal && <AddPhoneModal toggleModal={toggleModal} />}
 
           {/* <input type="email" placeholder="Email" /> */}
           <p className="user-email">{email}</p>

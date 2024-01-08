@@ -7,7 +7,7 @@ import profileAvatar from "../../assets/profileAvatar.svg";
 import "./MainPage.css";
 import { Link } from "react-router-dom";
 
-const MainPage = ({ username }) => {
+const MainPage = () => {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
