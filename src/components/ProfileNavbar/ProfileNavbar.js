@@ -59,7 +59,7 @@ const ProfileNavbar = ({ username, email }) => {
 
       {modal && (
         <LogoutModal
-          onLogout={null}
+          onLogout={null} //Should be edited
           onCancel={handleCancelClick}
           toggleModal={toggleModal}
         >

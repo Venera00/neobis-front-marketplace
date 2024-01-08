@@ -85,3 +85,16 @@ input[type="file"] + label {
 .choose-photo {
   align-items: center;
 }
+
+.profile-btn {
+  margin-top: 5rem;
+  border: none;
+  width: 28rem;
+  height: 4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  background-color: #5d5fef;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
