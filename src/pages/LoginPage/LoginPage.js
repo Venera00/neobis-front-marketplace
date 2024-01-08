@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { login } from "../../api";
+import { useDispatch } from "react-redux";
+import { setEmail } from "../../redux/reducers/reducers";
 import mainLoginImage from "../../assets/mainLoginImage.png";
 import eyeDisable from "../../assets/eyeDisable.svg";
 import eye from "../../assets/eye.svg";
@@ -11,6 +13,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
@@ -21,6 +25,9 @@ const LoginPage = () => {
     try {
       const response = await login({ username, password });
       console.log("Login success", response);
+
+      const userEmail = response.data.email;
+      dispatch(setEmail(userEmail));
     } catch (error) {
       console.log("Login failed", error);
       // there need to add toastify

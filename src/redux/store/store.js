@@ -1,14 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "../reducers/reducers";
+import profileReducer from "../reducers/reducers";
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    profile: profileReducer,
 
-  //   reducer: {
-  //     profile,
-  //     products,
-  //   },
-  devTools: true,
+    devTools: true,
+  },
 });
 
 export default store;

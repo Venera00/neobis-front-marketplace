@@ -1,7 +1,22 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { combineReducers, createSlice } from "@reduxjs/toolkit";
 
-const rootReducer = combineReducers({
-  // product:productReducer
+const initialState = {
+  image: "",
+  email: "",
+};
+
+const profileSlice = createSlice({
+  name: "profile",
+  initialState,
+  reducers: {
+    setImage: (state, action) => {
+      state.image = action.payload;
+    },
+    setEmail: (state, action) => {
+      state.email = action.payload;
+    },
+  },
 });
 
-export default rootReducer;
+export const { setImage, setEmail } = profileSlice.actions;
+export default profileSlice.reducer;

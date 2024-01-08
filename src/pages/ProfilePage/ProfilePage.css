@@ -98,3 +98,9 @@ input[type="file"] + label {
   font-weight: 500;
   font-size: 1.4rem;
 }
+
+.user-email {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #000000;
+}
