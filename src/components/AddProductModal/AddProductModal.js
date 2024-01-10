@@ -46,12 +46,31 @@ const AddProductModal = ({ toggleModal }) => {
       });
       console.log(response);
 
-      toast.success("Товар добавлен");
+      toast.success("Товар добавлен", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
 
       navigate.push("/profile"); //The path should be changed
     } catch (error) {
       console.log(error);
-      toast.error("Не удалось добавить товар");
+
+      toast.error("Не удалось добавить товар", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
     toggleModal();
   };
