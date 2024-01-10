@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# Marketplace Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This web application serves as a marketplace platform allowing users to register, log in, manage their profile, and interact by adding and selling products.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Registration Page**: Users can sign up for a new account providing required information.
 
-### `npm start`
+  ![Registration 1](src/assets/Readme/registration1.png)
+  ![Registration 2](src/assets/Readme/registration2.jpg)
+  ![Registration 3](src/assets/Readme/registration3.jpg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Login Page**: Registered users can log in using their credentials.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  ![Login](src/assets/Readme/login.jpg)
 
-### `npm test`
+- **Main Page**: Users can view available products and add their own products for sale.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  ![Main page](src/assets/Readme/main.jpg)
 
-### `npm run build`
+- **Product adding**: Authorized user can add products to sell
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  ![Product add](<src/assets/Readme/product adding.jpg>)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Profile Page**: Users can manage their personal information, including name, last name, date of birth, and phone number.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  ![Profile page](src/assets/Readme/profile.jpg)
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Registration and Login**:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   - Navigate to the registration page to create a new account.
+   - Use the credentials to log in through the login page.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Main Page**:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   - After logging in, users can access the main page.
+   - Users can view available products and add their products for sale.
 
-## Learn More
+3. **Profile Page**:
+   - Access the profile page to manage personal information.
+   - Update details such as name, last name, date of birth, and phone number.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Technologies Used
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React.js: Frontend framework for building user interfaces.
+- HTML/CSS: For web page structure and styling.
+- JavaScript: Programming language for frontend.
+- React Toastify: Package to add notifications in React
+- Redux toolkit: opinionated, batteries-included toolset for efficient Redux development.
+- Axios: HTTP library to make requests to server to fetch data
 
-### Code Splitting
+## Setup and Installation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Clone the repository:
 
-### Analyzing the Bundle Size
+   ```
+   git clone https://github.com/yourusername/marketplace.git
+   cd marketplace
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Install dependencies:
 
-### Making a Progressive Web App
+   ```
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. Start the application:
 
-### Advanced Configuration
+   ```
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contributors
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Aibek Yrysbekov (backend): https://github.com/AibekYrysbekov
+- Igor Pak (IOS): https://github.com/iPakTulane
+- Venera Omurzak kyzy (frontend): https://github.com/Venera00

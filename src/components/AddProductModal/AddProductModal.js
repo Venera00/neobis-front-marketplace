@@ -18,9 +18,10 @@ const AddProductModal = ({ toggleModal }) => {
   const initialValues = {
     image: null,
     price: null,
-    productName: "",
-    briefDescription: "",
-    fullDescription: "",
+    name: "",
+    short_description: "",
+    description: "",
+    available: false,
   };
 
   const handleImageChange = (event) => {
@@ -40,9 +41,9 @@ const AddProductModal = ({ toggleModal }) => {
       const response = await addProduct({
         image: image,
         price: values.price,
-        productName: values.productName,
-        briefDescription: values.briefDescription,
-        fullDescription: values.fullDescription,
+        name: values.productName,
+        short_description: values.short_description,
+        description: values.description,
       });
       console.log(response);
 
@@ -134,39 +135,46 @@ const AddProductModal = ({ toggleModal }) => {
 
                 <Field
                   type="text"
-                  name="productName"
+                  name="name"
                   placeholder="Название"
                   className="product-input"
                 />
                 <ErrorMessage
-                  name="productName"
+                  name="name"
                   component="div"
                   className="error-msg"
                 />
 
                 <Field
                   type="text"
-                  name="briefDescription"
+                  name="short_description"
                   placeholder="Краткое описание"
                   className="product-input"
                 />
                 <ErrorMessage
-                  name="briefDescription"
+                  name="short_description"
                   component="div"
                   className="error-msg"
                 />
 
                 <Field
                   type="text"
-                  name="fullDescription"
+                  name="description"
                   placeholder="Полное описание"
                   className="product-input"
                 />
                 <ErrorMessage
-                  name="fullDescription"
+                  name="description"
                   component="div"
                   className="error-msg"
                 />
+
+                <label className="available-checkbox flex">
+                  <p className="available-title">В наличии: </p>
+                  <div>
+                    <Field type="checkbox" name="available" />
+                  </div>
+                </label>
 
                 <button
                   type="submit"
