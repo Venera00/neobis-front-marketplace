@@ -6,14 +6,17 @@ import mainLoginImage from "../../assets/mainLoginImage.png";
 import eyeDisable from "../../assets/eyeDisable.svg";
 import eye from "../../assets/eye.svg";
 import "./LoginPage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState("");
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // const dispatch = useDispatch();
 
   const handleToggle = () => {
     setShowPassword(!showPassword);
@@ -26,11 +29,23 @@ const LoginPage = () => {
       const response = await login({ username, password });
       console.log("Login success", response);
 
-      const userEmail = response.data.email;
-      dispatch(setEmail(userEmail));
+      navigate("/main");
+
+      // const userEmail = response.data.email;
+      // dispatch(setEmail(userEmail));
     } catch (error) {
       console.log("Login failed", error);
-      // there need to add toastify
+
+      toast.error("Неверный логин или пароль!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
