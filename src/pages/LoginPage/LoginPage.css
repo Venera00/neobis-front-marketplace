@@ -16,6 +16,23 @@
   padding-bottom: 18rem;
 }
 
+.login-input {
+  width: 33.5rem;
+  height: 3.5rem;
+  border: none;
+  border-bottom: 1px solid #c0c0c0;
+  outline: none;
+  margin-bottom: 5rem;
+  font-weight: 400;
+  font-size: 1.6rem;
+}
+
+.login-input::placeholder {
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #c0c0c0;
+}
+
 .login-link__wrapper {
   display: flex;
   align-items: center;

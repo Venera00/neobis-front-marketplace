@@ -123,7 +123,7 @@ const AddProductModal = ({ toggleModal }) => {
                   type="number"
                   name="price"
                   placeholder="Цена"
-                  className="form-input"
+                  className="product-input"
                   onBlur={handleBlur}
                 />
                 <ErrorMessage
@@ -136,7 +136,7 @@ const AddProductModal = ({ toggleModal }) => {
                   type="text"
                   name="productName"
                   placeholder="Название"
-                  className="form-input"
+                  className="product-input"
                 />
                 <ErrorMessage
                   name="productName"
@@ -148,7 +148,7 @@ const AddProductModal = ({ toggleModal }) => {
                   type="text"
                   name="briefDescription"
                   placeholder="Краткое описание"
-                  className="form-input"
+                  className="product-input"
                 />
                 <ErrorMessage
                   name="briefDescription"
@@ -160,7 +160,7 @@ const AddProductModal = ({ toggleModal }) => {
                   type="text"
                   name="fullDescription"
                   placeholder="Полное описание"
-                  className="form-input"
+                  className="product-input"
                 />
                 <ErrorMessage
                   name="fullDescription"

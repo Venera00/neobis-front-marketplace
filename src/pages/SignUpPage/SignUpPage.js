@@ -9,6 +9,7 @@ import mainLoginImg from "../../assets/mainLoginImage.png";
 import goBackIcon from "../../assets/goBackIcon.svg";
 import eye from "../../assets/eye.svg";
 import eyeDisable from "../../assets/eyeDisable.svg";
+import passwordIcon from "../../assets/passwordIcon.svg";
 import "./SignUpPage.css";
 
 const SignUpPage = () => {
@@ -100,7 +101,7 @@ const SignUpPage = () => {
           validationSchema={formik.validationSchema}
           onSubmit={(values) => handleSubmit(values)}
         >
-          {({ values, errors, touched, handleBlur, handleChange }) => (
+          {({ values, errors, touched, handleBlur, handleChange, isValid }) => (
             <Form className="signup-form">
               {!showPasswordInput && (
                 <div className="form-inputs">
@@ -137,6 +138,17 @@ const SignUpPage = () => {
                       className="error-message"
                     />
                   </label>
+                </div>
+              )}
+
+              {showPasswordInput && (
+                <div>
+                  <img src={passwordIcon} />
+
+                  <div className="password-requirements">
+                    Минимальная длина — 8 символов. Для надежности пароль должен
+                    содержать буквы, цифры и минимум 1 спец. символ.
+                  </div>
                 </div>
               )}
               {showPasswordInput && (
@@ -190,13 +202,18 @@ const SignUpPage = () => {
                 <button
                   onClick={handleNextClick}
                   type="button"
-                  className="signup-next-btn"
+                  className={`signup-next-btn ${isValid ? "gray" : "purple"}`}
+                  disabled={!formik.isValid}
                 >
                   Далее
                 </button>
               )}
               {showPasswordInput && (
-                <button type="submit" className={`signup-btn`}>
+                <button
+                  type="submit"
+                  className={`signup-btn ${isValid ? "gray" : "purple"}`}
+                  disabled={!formik.isValid}
+                >
                   Далее
                 </button>
               )}

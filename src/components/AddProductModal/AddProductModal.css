@@ -63,7 +63,7 @@ input[type="file"] {
   border-radius: 1rem;
 }
 
-.form-input {
+.product-input {
   width: 53.2rem;
   height: 4rem;
   background-color: #f7f6f9;
@@ -72,7 +72,7 @@ input[type="file"] {
   padding-left: 1rem;
 }
 
-.form-input::placeholder {
+.product-input::placeholder {
   font-weight: 400;
   font-size: 1.6rem;
   color: #c0c0c0;

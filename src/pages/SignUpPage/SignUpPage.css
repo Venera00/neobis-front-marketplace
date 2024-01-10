@@ -54,6 +54,15 @@
   margin-bottom: 5rem;
 }
 
+.password-requirements {
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #c0c0c0;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+  width: 34.3rem;
+}
+
 .signup-next-btn,
 .signup-btn {
   width: 33.5rem;
@@ -65,6 +74,14 @@
   border: none;
   cursor: pointer;
   border-radius: 8rem;
+}
+
+.gray {
+  background-color: #c0c0c0;
+}
+
+.purple {
+  background-color: #5458ea;
 }
 
 .error-message {

@@ -61,7 +61,7 @@ const LoginPage = () => {
             type="text"
             value={username}
             placeholder="Имя пользователя"
-            className="form-input"
+            className="login-input"
             onChange={(e) => setUsername(e.target.value)}
           />
           <div className="password-input__wrapper flex space-between">
