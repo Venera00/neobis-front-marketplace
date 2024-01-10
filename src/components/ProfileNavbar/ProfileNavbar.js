@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoutModal from "../LogoutModal/LogoutModal";
 import profileAvatar from "../../assets/profileAvatar.svg";
 import favorites from "../../assets/favorites.svg";
@@ -10,6 +10,8 @@ import "./ProfileNavbar.css";
 
 const ProfileNavbar = ({ username, email }) => {
   const [modal, setModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleModal = () => {
     setModal(!modal);
@@ -59,7 +61,7 @@ const ProfileNavbar = ({ username, email }) => {
 
       {modal && (
         <LogoutModal
-          onLogout={null} //Should be edited
+          onLogout={navigate("/")} //Should be edited
           onCancel={handleCancelClick}
           toggleModal={toggleModal}
         >

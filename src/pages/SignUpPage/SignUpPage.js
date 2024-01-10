@@ -59,20 +59,20 @@ const SignUpPage = () => {
       };
 
       const response = await signup(userInput);
-      if (response && response.success) {
-        navigate("/main");
-        console.log("Successfull registration", response);
-        toast.success("Регистрация прошла успешно", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      }
+
+      console.log("Successfull registration", response);
+      toast.success("Регистрация прошла успешно", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
+      navigate("/main");
     } catch (error) {
       console.log(error.response);
     }
