@@ -14,6 +14,7 @@ export const signup = async (data) => {
     return response.data;
   } catch (error) {
     console.log("Registration failed", error);
+    throw error;
   }
 };
 
@@ -38,15 +39,15 @@ export const addProduct = async (data) => {
   }
 };
 
-// export const addUserInfo = async (data) => {
-//   try {
-//     const response = await instance.put("/auth/profile-update/", data);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// };
+export const addUserInfo = async (data) => {
+  try {
+    const response = await instance.put("/auth/profile-update/", data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 export const accessToken = async (refreshToken) => {
   try {

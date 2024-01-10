@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setImage } from "../../redux/reducers/reducers";
 import ProfileNavbar from "../../components/ProfileNavbar/ProfileNavbar";
-// import addUserInfo from "../../api/index";
+import { addUserInfo } from "../../api/index";
 import AddPhoneModal from "../../components/AddPhoneModal/AddPhoneModal";
 import LogoutModal from "../../components/LogoutModal/LogoutModal";
 import goBackIcon from "../../assets/goBackIcon.svg";
@@ -41,16 +41,16 @@ const ProfilePage = () => {
     };
   });
 
-  // const handleClick = async () => {
-  //   try {
-  //     const response = await addUserInfo();
+  const handleClick = async () => {
+    try {
+      const response = await addUserInfo();
 
-  //     console.log(response);
-  //     // Add toastify
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      console.log(response);
+      // Add toastify
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="profile-wrapper">
@@ -88,7 +88,9 @@ const ProfilePage = () => {
 
           {/* <input type="email" placeholder="Email" /> */}
           <p className="user-email">{email}</p>
-          <button className="profile-btn">Coхранить</button>
+          <button className="profile-btn" onSubmit={handleClick}>
+            Coхранить
+          </button>
         </form>
       </div>
     </div>

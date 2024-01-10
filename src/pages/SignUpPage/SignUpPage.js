@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../api/index";
-import { refreshToken } from "../../api/index";
+// import { refreshToken } from "../../api/index";
 import userValidationSchema from "../../Schemas/UserRegistrationInput";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import { toast } from "react-toastify";
 import mainLoginImg from "../../assets/mainLoginImage.png";
 import goBackIcon from "../../assets/goBackIcon.svg";
 import eye from "../../assets/eye.svg";
@@ -41,37 +42,41 @@ const SignUpPage = () => {
       username: "",
       email: "",
       password: "",
-      passwordConfirm: "",
+      password_confirm: "",
     },
     validationSchema: userValidationSchema,
-
-    onSubmit: async (values, { resetForm }) => {
-      try {
-        const userInput = {
-          username: values.username,
-          email: values.email,
-          password: values.password,
-          passwordConfirm: values.passwordConfirm,
-        };
-
-        const response = await signup(userInput);
-        if (response && response.success) {
-          navigate("/main");
-          console.log(response);
-
-          resetForm();
-        }
-      } catch (error) {
-        console.log(error.response);
-      }
-
-      console.log("Username:", values.username);
-      console.log("Email:", values.email);
-      console.log("Password:", values.password);
-    },
   });
 
-  const { values, errors, touched, handleBlur, handleChange } = formik;
+  const handleSubmit = async (values) => {
+    console.log("Form values:", values);
+
+    try {
+      const userInput = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        password_confirm: values.password_confirm,
+      };
+
+      const response = await signup(userInput);
+      if (response && response.success) {
+        navigate("/main");
+        console.log("Successfull registration", response);
+        toast.success("Регистрация прошла успешно", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <div className="flex space-between main-container">
@@ -93,106 +98,110 @@ const SignUpPage = () => {
         <Formik
           initialValues={formik.initialValues}
           validationSchema={formik.validationSchema}
-          onSubmit={formik.handleSubmit}
+          onSubmit={(values) => handleSubmit(values)}
         >
-          <Form className="signup-form">
-            {!showPasswordInput && (
-              <div className="form-inputs">
-                <label>
-                  <Field
-                    type="text"
-                    name="username"
-                    value={values.username}
-                    placeholder="Имя пользователя"
-                    className="form-input"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <ErrorMessage
-                    name="username"
-                    component="div"
-                    className="error-message"
-                  />
-                </label>
-
-                <label>
-                  <Field
-                    type="email"
-                    name="email"
-                    value={values.email}
-                    placeholder="Почта"
-                    className="form-input"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="error-message"
-                  />
-                </label>
-              </div>
-            )}
-            {showPasswordInput && (
-              <div className="password-inputs">
-                <div className="password-input__wrapper flex space-between">
-                  <Field
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    placeholder="Пароль"
-                    className="password-input"
-                  />
-                  <span onClick={handleToggle} className="eye">
-                    <img
-                      src={showPassword ? eye : eyeDisable}
-                      alt="Eye Icon"
-                      className="eye-icon"
+          {({ values, errors, touched, handleBlur, handleChange }) => (
+            <Form className="signup-form">
+              {!showPasswordInput && (
+                <div className="form-inputs">
+                  <label>
+                    <Field
+                      type="text"
+                      name="username"
+                      value={values.username}
+                      placeholder="Имя пользователя"
+                      className="form-input"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                  </span>
-                </div>
-                {errors.password && touched.password && (
-                  <div className="error-message">{errors.password}</div>
-                )}
-
-                <div className="password-input__wrapper flex space-between">
-                  <Field
-                    type={showConfirmPassword ? "text" : "password"}
-                    name="passwordConfirm"
-                    value={values.passwordConfirm}
-                    onChange={handleChange}
-                    placeholder="Потдтвердите пароль"
-                    className="password-input"
-                  />
-                  <span onClick={handleToggleConfirmPassword} className="eye">
-                    <img
-                      src={showConfirmPassword ? eye : eyeDisable}
-                      alt="Eye Icon"
-                      className="eye-icon"
+                    <ErrorMessage
+                      name="username"
+                      component="div"
+                      className="error-message"
                     />
-                  </span>
+                  </label>
+
+                  <label>
+                    <Field
+                      type="email"
+                      name="email"
+                      value={values.email}
+                      placeholder="Почта"
+                      className="form-input"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="error-message"
+                    />
+                  </label>
                 </div>
-                {errors.passwordConfirm && touched.passwordConfirm && (
-                  <div className="error-message">{errors.passwordConfirm}</div>
-                )}
-              </div>
-            )}
-            {!showPasswordInput && (
-              <button
-                onClick={handleNextClick}
-                type="button"
-                className="signup-next-btn"
-              >
-                Далее
-              </button>
-            )}
-            {showPasswordInput && (
-              <button type="submit" className={`signup-btn`}>
-                Далее
-              </button>
-            )}
-          </Form>
+              )}
+              {showPasswordInput && (
+                <div className="password-inputs">
+                  <div className="password-input__wrapper flex space-between">
+                    <Field
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      placeholder="Пароль"
+                      className="password-input"
+                    />
+                    <span onClick={handleToggle} className="eye">
+                      <img
+                        src={showPassword ? eye : eyeDisable}
+                        alt="Eye Icon"
+                        className="eye-icon"
+                      />
+                    </span>
+                  </div>
+                  {errors.password && touched.password && (
+                    <div className="error-message">{errors.password}</div>
+                  )}
+
+                  <div className="password-input__wrapper flex space-between">
+                    <Field
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="password_confirm"
+                      value={values.password_confirm}
+                      onChange={handleChange}
+                      placeholder="Подтвердите пароль"
+                      className="password-input"
+                    />
+                    <span onClick={handleToggleConfirmPassword} className="eye">
+                      <img
+                        src={showConfirmPassword ? eye : eyeDisable}
+                        alt="Eye Icon"
+                        className="eye-icon"
+                      />
+                    </span>
+                  </div>
+                  {errors.password_confirm && touched.password_confirm && (
+                    <div className="error-message">
+                      {errors.password_confirm}
+                    </div>
+                  )}
+                </div>
+              )}
+              {!showPasswordInput && (
+                <button
+                  onClick={handleNextClick}
+                  type="button"
+                  className="signup-next-btn"
+                >
+                  Далее
+                </button>
+              )}
+              {showPasswordInput && (
+                <button type="submit" className={`signup-btn`}>
+                  Далее
+                </button>
+              )}
+            </Form>
+          )}
         </Formik>
       </div>
     </div>
