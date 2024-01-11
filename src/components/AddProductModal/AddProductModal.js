@@ -37,14 +37,16 @@ const AddProductModal = ({ toggleModal }) => {
   };
 
   const handleSubmit = async (values, actions) => {
+    const formData = new FormData();
+
+    formData.append("image", image);
+    formData.append("price", values.price);
+    formData.append("name", values.name);
+    formData.append("short_description", values.short_description);
+    formData.append("description", values.description);
+    formData.append("available", values.available);
     try {
-      const response = await addProduct({
-        image: image,
-        price: values.price,
-        name: values.productName,
-        short_description: values.short_description,
-        description: values.description,
-      });
+      const response = await addProduct(formData);
       console.log(response);
 
       toast.success("Товар добавлен", {

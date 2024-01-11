@@ -29,9 +29,17 @@ export const login = async (data) => {
   }
 };
 
-export const addProduct = async (data) => {
+export const addProduct = async (formData) => {
   try {
-    const response = await instance.post("/products/create-update-list/", data);
+    const response = await instance.post(
+      "/products/create-update-list/",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.log("Error in adding product");
@@ -39,9 +47,13 @@ export const addProduct = async (data) => {
   }
 };
 
-export const addUserInfo = async (data) => {
+export const addUserInfo = async (formData) => {
   try {
-    const response = await instance.put("/auth/profile-update/", data);
+    const response = await instance.put("/auth/profile-update/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -49,19 +61,19 @@ export const addUserInfo = async (data) => {
   }
 };
 
-export const accessToken = async (refreshToken) => {
-  try {
-    const response = await instance.post("/auth/token/refresh/", {
-      refreshToken: refreshToken,
-    });
-    const newAccessToken = response.data.accessToken;
-    // Handle store
+// export const refreshAccessToken = async (refreshToken) => {
+//   try {
+//     const response = await instance.post("/auth/token/refresh/", {
+//       refreshToken: refreshToken,
+//     });
+//     const newAccessToken = response.data.accessToken;
+//     // Handle store
 
-    localStorage.setItem("accessToken", newAccessToken);
+//     localStorage.setItem("accessToken", newAccessToken);
 
-    return newAccessToken;
-  } catch (error) {
-    console.log("Token refresh failed", error);
-    throw error;
-  }
-};
+//     return newAccessToken;
+//   } catch (error) {
+//     console.log("Token refresh failed", error);
+//     throw error;
+//   }
+// };  Rewrite it please
