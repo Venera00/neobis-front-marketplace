@@ -39,7 +39,7 @@ const AddProductModal = ({ toggleModal }) => {
   const handleSubmit = async (values, actions) => {
     const formData = new FormData();
 
-    formData.append("image", image);
+    formData.append("photos", image);
     formData.append("price", values.price);
     formData.append("name", values.name);
     formData.append("short_description", values.short_description);

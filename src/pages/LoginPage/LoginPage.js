@@ -29,7 +29,7 @@ const LoginPage = () => {
       const response = await login({ username, password });
       console.log("Login success", response);
 
-      navigate("/main");
+      navigate("/main", { state: { username: response.username } });
 
       // const userEmail = response.data.email;
       // dispatch(setEmail(userEmail));
