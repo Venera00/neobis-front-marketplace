@@ -118,9 +118,9 @@ const ProfilePage = () => {
             onChange={(e) => setLastName(e.target.value)}
           />
           <input
-            type="date"
+            type="text"
             name="date_of_birth"
-            placeholder="Дата рождения"
+            placeholder="Дата рождения 2000-10-10"
             value={dateOfBirth}
             onChange={(e) => setDateOfBirth(e.target.value)}
           />
