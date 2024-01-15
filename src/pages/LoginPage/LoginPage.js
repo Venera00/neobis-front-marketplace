@@ -29,7 +29,9 @@ const LoginPage = () => {
       const response = await login({ username, password });
       console.log("Login success", response);
 
-      navigate("/main", { state: { username: response.username } });
+      navigate("/main", {
+        state: { username: response.username, email: response.email },
+      });
 
       // const userEmail = response.data.email;
       // dispatch(setEmail(userEmail));

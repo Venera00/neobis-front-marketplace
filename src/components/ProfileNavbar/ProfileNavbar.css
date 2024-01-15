@@ -4,6 +4,8 @@
 
 .username-info {
   margin-bottom: 1.3rem;
+  justify-content: start;
+  gap: 2rem;
 }
 
 .profile-menu {
@@ -38,4 +40,10 @@
   font-weight: 400;
   font-size: 1.6rem;
   color: #494949;
+}
+
+.username,
+.email {
+  font-weight: 400;
+  font-size: 1.4rem;
 }

@@ -73,7 +73,12 @@ const SignUpPage = () => {
         theme: "colored",
       });
 
-      navigate("/main");
+      navigate("/", {
+        state: {
+          username: response.username,
+          email: response.email,
+        },
+      });
     } catch (error) {
       console.log(error.response);
     }

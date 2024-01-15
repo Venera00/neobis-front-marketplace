@@ -1,10 +1,15 @@
 import axios from "axios";
 
+const token = localStorage.getItem("authToken");
+
+const headers = {
+  "Content-Type": "application/json",
+  ...(token && { Authorization: `Bearer ${token}` }),
+};
+
 const instance = axios.create({
   baseURL: "https://aibek-backender.org.kg",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers,
 });
 
 export const signup = async (data) => {
@@ -61,19 +66,19 @@ export const addUserInfo = async (formData) => {
   }
 };
 
-// export const refreshAccessToken = async (refreshToken) => {
-//   try {
-//     const response = await instance.post("/auth/token/refresh/", {
-//       refreshToken: refreshToken,
-//     });
-//     const newAccessToken = response.data.accessToken;
-//     // Handle store
+export const refreshAccessToken = async (refreshToken) => {
+  try {
+    const response = await instance.post("/auth/token/refresh/", {
+      refreshToken: refreshToken,
+    });
+    const newAccessToken = response.data.accessToken;
+    // Handle store
 
-//     localStorage.setItem("accessToken", newAccessToken);
+    localStorage.setItem("accessToken", newAccessToken);
 
-//     return newAccessToken;
-//   } catch (error) {
-//     console.log("Token refresh failed", error);
-//     throw error;
-//   }
-// };  Rewrite it please
+    return newAccessToken;
+  } catch (error) {
+    console.log("Token refresh failed", error);
+    throw error;
+  }
+};

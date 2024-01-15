@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setImage } from "../../redux/reducers/reducers";
 import ProfileNavbar from "../../components/ProfileNavbar/ProfileNavbar";
@@ -14,9 +14,21 @@ const ProfilePage = () => {
   const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState(profileAvatar);
 
-  const dispatch = useDispatch();
-  const email = useSelector((state) => state.profile.email);
-  const userImage = useSelector((state) => state.profile.image);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [email, setEmail] = useState("");
+
+  const { state } = useLocation();
+  const username = state && state.username;
+
+  useEffect(() => {
+    setEmail(state && state.email);
+  }, [state]);
+
+  // const dispatch = useDispatch();
+  // const email = useSelector((state) => state.profile.email);
+  // const userImage = useSelector((state) => state.profile.image);
 
   const [modal, setModal] = useState(false);
 
@@ -30,7 +42,7 @@ const ProfilePage = () => {
     console.log(e.target.files[0]);
     setPreviewImage(URL.createObjectURL(selectedImg));
 
-    dispatch(setImage(URL.createObjectURL(selectedImg)));
+    // dispatch(setImage(URL.createObjectURL(selectedImg)));
   };
 
   useEffect(() => {
@@ -41,20 +53,15 @@ const ProfilePage = () => {
     };
   });
 
-  const handleClick = async (values) => {
-    // const userInfo = () => {
-    //   image: values.image;
-    //   first_name: firstName,
-    //   last_name: values.last_name,
-    //   date_of_birth: toString(values.date_of_birth),
-    // } need to request with formdata
+  const handleClick = async (e) => {
+    e.preventDefault();
 
     const formData = new FormData();
 
-    formData.append("image", image);
-    formData.append("first_name", values.first_name);
-    formData.append("last_name", values.last_name);
-    formData.append("date_of_birth", values.last_name);
+    formData.append("avatar", image);
+    formData.append("first_name", firstName);
+    formData.append("last_name", lastName);
+    formData.append("date_of_birth", dateOfBirth);
 
     try {
       const response = await addUserInfo(formData);
@@ -63,6 +70,9 @@ const ProfilePage = () => {
       // Add toastify
     } catch (error) {
       console.log(error);
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
     }
   };
 
@@ -78,7 +88,7 @@ const ProfilePage = () => {
           <p className="signup-title">Профиль</p>
         </div>
 
-        <form className="profile-form flex">
+        <form onSubmit={handleClick} className="profile-form flex">
           <div className="choose-photo flex">
             <img
               src={previewImage}
@@ -97,10 +107,23 @@ const ProfilePage = () => {
             type="text"
             name="first_name"
             placeholder="Имя"
-            onChange={(e) => e.target.value}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
-          <input type="text" name="last_name" placeholder="Фамилия" />
-          <input type="date" name="date_of_birth" placeholder="Дата рождения" />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Фамилия"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <input
+            type="date"
+            name="date_of_birth"
+            placeholder="Дата рождения"
+            value={dateOfBirth}
+            onChange={(e) => setDateOfBirth(e.target.value)}
+          />
           <div className="add-mobile" onClick={toggleModal}>
             Добавить номер
           </div>
@@ -108,7 +131,7 @@ const ProfilePage = () => {
 
           {/* <input type="email" placeholder="Email" /> */}
           <p className="user-email">{email}</p>
-          <button className="profile-btn" onSubmit={handleClick}>
+          <button type="submit" className="profile-btn">
             Coхранить
           </button>
         </form>
