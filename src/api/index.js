@@ -1,15 +1,14 @@
 import axios from "axios";
 
-const token = localStorage.getItem("authToken");
-
-const headers = {
-  "Content-Type": "application/json",
-  ...(token && { Authorization: `Bearer ${token}` }),
-};
+const access_token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1ODIzODUyLCJpYXQiOjE3MDUzOTE4NTIsImp0aSI6Ijg4MzY4ODc3ZjBlNTQxZGJhZmZmZDk0ZTI5YmMzNWVlIiwidXNlcl9pZCI6NH0.uuVe67pWSHuxe7dxGY2haqZ37klBZBPJB-1-I8KZtAU";
 
 const instance = axios.create({
   baseURL: "https://aibek-backender.org.kg",
-  headers,
+  headers: {
+    "Content-Type": "application/json",
+    ...(access_token && { Authorization: `Bearer ${access_token}` }),
+  },
 });
 
 export const signup = async (data) => {
@@ -42,6 +41,7 @@ export const addProduct = async (formData) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          ...(access_token && { Authorization: `Bearer ${access_token}` }),
         },
       }
     );
@@ -57,6 +57,7 @@ export const addUserInfo = async (formData) => {
     const response = await instance.put("/auth/profile-update/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        ...(access_token && { Authorization: `Bearer ${access_token}` }),
       },
     });
     return response.data;
