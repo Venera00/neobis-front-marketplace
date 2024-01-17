@@ -11,6 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 const MainPage = () => {
   const [modal, setModal] = useState(false);
   const [username, setUsername] = useState("");
+  const [userProducts, setUserProducts] = useState([]);
 
   const location = useLocation();
 
@@ -22,6 +23,10 @@ const MainPage = () => {
 
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const addProductHandler = (product) => {
+    setUserProducts((prevProducts) => [...prevProducts, product]);
   };
 
   return (
@@ -46,6 +51,18 @@ const MainPage = () => {
       </div>
       <div className="cards-container">
         {ProductCardData.map((product) => (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            imgSrc={product.imgSrc}
+            title={product.title}
+            price={product.price}
+            Heart={product.Heart}
+            heartTitle={product.heartTitle}
+          />
+        ))}
+
+        {userProducts.map((product) => (
           <ProductCard
             key={product.id}
             id={product.id}

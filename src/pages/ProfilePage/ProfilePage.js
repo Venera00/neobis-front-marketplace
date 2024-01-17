@@ -36,11 +36,42 @@ const ProfilePage = () => {
     setModal(!modal);
   };
 
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+
+    if (storedUserData) {
+      const parsedUserData = JSON.parse(storedUserData);
+
+      setImage(parsedUserData.image);
+      setFirstName(parsedUserData.firstName);
+      setLastName(parsedUserData.lastName);
+      setDateOfBirth(parsedUserData.dateOfBirth);
+    }
+  }, []);
+
+  useEffect(() => {
+    const userDataStore = JSON.stringify({
+      image,
+      firstName,
+      lastName,
+      dateOfBirth,
+    });
+
+    localStorage.setItem("userData", userDataStore);
+  }, [image, firstName, lastName, dateOfBirth]);
+
   const handleImage = (e) => {
     const selectedImg = e.target.files[0];
     setImage(selectedImg);
     console.log(e.target.files[0]);
     setPreviewImage(URL.createObjectURL(selectedImg));
+
+    // const reader = new FileReader();
+
+    // reader.onloadend = () => {
+    //   setImage(reader.result);
+    // };
+    // reader.readAsDataURL(selectedImg);
 
     // dispatch(setImage(URL.createObjectURL(selectedImg)));
   };

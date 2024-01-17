@@ -1,0 +1,16 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.mygoods-container {
+  background-color: #f7f6f9;
+  height: 72.5rem;
+}
+
+.mygoods-title {
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: 500;
+  font-size: 1.6rem;
+}

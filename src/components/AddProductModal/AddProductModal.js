@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import addImg from "../../assets/addImg.svg";
 import "./AddProductModal.css";
 
-const AddProductModal = ({ toggleModal }) => {
+const AddProductModal = ({ toggleModal, addProductHandler }) => {
   const [files, setFiles] = useState(null);
   const [image, setImage] = useState(null);
   // const [isFormFilled, setIsFormFilled] = useState(false);
@@ -16,8 +16,8 @@ const AddProductModal = ({ toggleModal }) => {
   const navigate = useNavigate();
 
   const initialValues = {
-    image: null,
-    price: null,
+    image: "",
+    price: "",
     name: "",
     short_description: "",
     description: "",
@@ -45,9 +45,19 @@ const AddProductModal = ({ toggleModal }) => {
     formData.append("short_description", values.short_description);
     formData.append("description", values.description);
     formData.append("available", values.available);
+
     try {
       const response = await addProduct(formData);
       console.log(response);
+
+      addProductHandler({
+        id: response.data.id,
+        imgSrc: image,
+        title: values.name,
+        price: values.price,
+        Heart: false,
+        heartTitle: "",
+      });
 
       toast.success("Товар добавлен", {
         position: "top-right",
@@ -123,7 +133,7 @@ const AddProductModal = ({ toggleModal }) => {
                 </div>
 
                 <Field
-                  type="number"
+                  type="text"
                   name="price"
                   placeholder="Цена"
                   className="product-input"

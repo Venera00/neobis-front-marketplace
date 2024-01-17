@@ -8,7 +8,7 @@ import logout from "../../assets/logout.svg";
 import profileArrow from "../../assets/profileArrow.svg";
 import "./ProfileNavbar.css";
 
-const ProfileNavbar = () => {
+const ProfileNavbar = ({ userProducts }) => {
   const [modal, setModal] = useState(false);
 
   const [username, setUsername] = useState("");
@@ -41,11 +41,13 @@ const ProfileNavbar = () => {
   return (
     <div className="profile-menu">
       <div className="username-info flex">
-        <img src={profileAvatar} alt="User avatar" />
-        <div className="username-wrappers">
-          <h4 className="username">{username}</h4>
-          <p className="email">{email}</p>
-        </div>
+        <Link to="/profile">
+          <img src={profileAvatar} alt="User avatar" />
+          <div className="username-wrappers">
+            <h4 className="username">{username}</h4>
+            <p className="email">{email}</p>
+          </div>
+        </Link>
       </div>
 
       <Link className="profile-link">
@@ -58,7 +60,10 @@ const ProfileNavbar = () => {
         </div>
       </Link>
 
-      <Link className="profile-link">
+      <Link
+        to={{ pathname: "/profile/my-goods", state: { userProducts } }}
+        className="profile-link"
+      >
         <div className="profile-item">
           <div className="item-info flex">
             <img src={myGoods} alt="My goods" />
