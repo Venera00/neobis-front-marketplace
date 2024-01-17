@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import LogoutModal from "../LogoutModal/LogoutModal";
+import { Logout } from "../../api";
 import profileAvatar from "../../assets/profileAvatar.svg";
 import favorites from "../../assets/favorites.svg";
 import myGoods from "../../assets/myGoods.svg";
@@ -36,6 +37,16 @@ const ProfileNavbar = ({ userProducts }) => {
 
   const handleCancelClick = () => {
     setModal(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await Logout();
+
+      setModal(false);
+    } catch (error) {
+      console.log("Logout failed", error);
+    }
   };
 
   return (
@@ -83,7 +94,7 @@ const ProfileNavbar = ({ userProducts }) => {
 
       {modal && (
         <LogoutModal
-          onLogout={navigate("/")} //Should be edited
+          onLogout={handleLogout}
           onCancel={handleCancelClick}
           toggleModal={toggleModal}
         >

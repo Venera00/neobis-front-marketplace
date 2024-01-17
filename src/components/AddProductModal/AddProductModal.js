@@ -51,7 +51,7 @@ const AddProductModal = ({ toggleModal, addProductHandler }) => {
       console.log(response);
 
       addProductHandler({
-        id: response.data.id,
+        id: response.id,
         imgSrc: image,
         title: values.name,
         price: values.price,
