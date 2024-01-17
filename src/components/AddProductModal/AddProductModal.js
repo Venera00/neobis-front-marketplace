@@ -70,7 +70,7 @@ const AddProductModal = ({ toggleModal, addProductHandler }) => {
         theme: "colored",
       });
 
-      navigate.push("/profile"); //The path should be changed
+      navigate.push("/profile/my-goods");
     } catch (error) {
       console.log(error);
 

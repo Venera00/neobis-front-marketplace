@@ -7,11 +7,14 @@ import mobiMarketIcon from "../../assets/mobiMarcetIcon.svg";
 import profileAvatar from "../../assets/profileAvatar.svg";
 import "./MainPage.css";
 import { Link, useLocation } from "react-router-dom";
+import { useProductContext } from "../../ProductProvider/ProductProvider";
 
 const MainPage = () => {
   const [modal, setModal] = useState(false);
   const [username, setUsername] = useState("");
-  const [userProducts, setUserProducts] = useState([]);
+  // const [userProducts, setUserProducts] = useState([]);
+
+  const { userProducts, addProduct } = useProductContext();
 
   const location = useLocation();
 
@@ -25,9 +28,9 @@ const MainPage = () => {
     setModal(!modal);
   };
 
-  const addProductHandler = (product) => {
-    setUserProducts((prevProducts) => [...prevProducts, product]);
-  };
+  // const addProductHandler = (product) => {
+  //   setUserProducts((prevProducts) => [...prevProducts, product]);
+  // };
 
   return (
     <div>
@@ -41,7 +44,12 @@ const MainPage = () => {
             <button onClick={toggleModal} className="nav-btn">
               Подать обьявление
             </button>
-            {modal && <AddProductModal toggleModal={toggleModal} />}
+            {modal && (
+              <AddProductModal
+                toggleModal={toggleModal}
+                addProductHandler={addProduct}
+              />
+            )}
           </div>
           <Link to="/profile" className="username-wrapper flex">
             <p className="username-title">{username}</p>
