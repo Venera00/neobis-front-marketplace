@@ -7,66 +7,37 @@ const instance = axios.create({
   },
 });
 
-// instance.interceptors.request.use(
-//   async (config) => {
-//     const csrfToken = localStorage.getItem("csrftoken");
-
-//     if (csrfToken) {
-//       config.headers["X-CSRFToken"] = csrfToken;
-//     }
-
-//     console.log("localStorage:", localStorage);
-
-//     const accessToken = localStorage.getItem("accessToken");
-//     console.log("access token:", accessToken);
-
-//     if (accessToken) {
-//       config.headers.Authorization = `Bearer ${accessToken}`;
-//     }
-
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-// instance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     if (error.response.status === 401) {
-//       console.log(error);
-//       throw error;
-//     }
-
-//     return Promise.reject(error);
-//   }
-// );
-
 let refresh = false;
 
 instance.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const originalRequest = error.config;
     const refreshToken = localStorage.getItem("refreshToken");
-    if (error.response.status === 401 && !refresh) {
+
+    if (error.response.status === 401 && !refresh && refreshToken) {
       refresh = true;
-      const response = await instance.post("/auth/token/refresh/", {
-        refresh: refreshToken,
-      });
 
-      const accessToken = localStorage.getItem("accessToken");
+      try {
+        const response = await instance.post("/auth/token/refresh/", {
+          refresh: refreshToken,
+        });
 
-      if (response.status === 201) {
-        instance.headers.Authorization = `Bearer ${accessToken}`;
-
-        return instance(error.config);
+        if (response.status === 201) {
+          const newAccessToken = response.data.access;
+          localStorage.setItem("accessToken", newAccessToken);
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return instance(originalRequest);
+        }
+      } catch (refreshError) {
+        console.log("Token refresh failed", refreshError);
+        throw refreshError;
+      } finally {
+        refresh = false;
       }
     }
-    refresh = false;
-    return error;
+
+    return Promise.reject(error);
   }
 );
 
@@ -84,11 +55,6 @@ export const signup = async (data) => {
 export const login = async (data) => {
   try {
     const response = await instance.post("/auth/login/", data);
-
-    // const accessToken = response.data.tokens?.access;
-
-    // localStorage.setItem("accessToken", accessToken);
-
     console.log("Successfully logged in");
     return response.data;
   } catch (error) {
