@@ -7,8 +7,10 @@ import { addUserInfo } from "../../api/index";
 import AddPhoneModal from "../../components/AddPhoneModal/AddPhoneModal";
 import LogoutModal from "../../components/LogoutModal/LogoutModal";
 import goBackIcon from "../../assets/goBackIcon.svg";
-import "./ProfilePage.css";
 import profileAvatar from "../../assets/profileAvatar.svg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const [image, setImage] = useState("");
@@ -98,10 +100,20 @@ const ProfilePage = () => {
       const response = await addUserInfo(formData);
 
       console.log(response);
-      // Add toastify
+
+      toast.success("Данные успешно обновлены", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       console.log(error);
-      console.log(error.response.data);
+      // console.log(error.response.data);
       console.log(error.response.status);
       console.log(error.response.headers);
     }

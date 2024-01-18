@@ -14,8 +14,9 @@ instance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     const refreshToken = localStorage.getItem("refreshToken");
+    console.log("Refresh token:", refreshToken);
 
-    if (error.response.status === 401 && !refresh && refreshToken) {
+    if (error.response.status === 401 && !refresh) {
       refresh = true;
 
       try {
@@ -26,6 +27,8 @@ instance.interceptors.response.use(
         if (response.status === 201) {
           const newAccessToken = response.data.access;
           localStorage.setItem("accessToken", newAccessToken);
+          console.log("Access Token:", newAccessToken);
+
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return instance(originalRequest);
         }
@@ -56,6 +59,13 @@ export const login = async (data) => {
   try {
     const response = await instance.post("/auth/login/", data);
     console.log("Successfully logged in");
+
+    const { access, refresh, user } = response.data.tokens;
+
+    localStorage.setItem("accessToken", access);
+    localStorage.setItem("refreshToken", refresh);
+    console.log("Localstorage:", localStorage);
+
     return response.data;
   } catch (error) {
     console.log("Login failed");
@@ -67,7 +77,7 @@ export const Logout = async (data) => {
   try {
     const response = await instance.post("/auth/logout/", data);
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    // localStorage.removeItem("refreshToken");
     return response.data;
   } catch (error) {
     throw error;
@@ -79,17 +89,48 @@ export const addProduct = async (formData) => {
     // const accessToken = localStorage.getItem("accessToken");
     // console.log("Access token:", accessToken);
 
+    const accessToken = localStorage.getItem("accessToken");
+
     const response = await instance.post(
       "/products/create-update-list/",
       formData,
       {
         headers: {
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data",
         },
       }
     );
     return response.data;
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      try {
+        const refreshToken = localStorage.getItem("refreshToken");
+        const refreshResponse = await instance.post("/auth/token/refresh", {
+          refresh: refreshToken,
+        });
+
+        if (refreshResponse.status === 201) {
+          const newAccessToken = refreshResponse.data.access;
+          localStorage.setItem("accessToken", newAccessToken);
+
+          const retryResponse = await instance.post(
+            "/products/create-update-list/",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            }
+          );
+          return retryResponse.data;
+        }
+      } catch (refreshError) {
+        console.log("token refresh failed:", refreshError);
+        throw refreshError;
+      }
+    }
     console.log("Error in adding product");
 
     throw error;
@@ -98,14 +139,16 @@ export const addProduct = async (formData) => {
 
 export const addUserInfo = async (formData) => {
   try {
+    const accessToken = localStorage.getItem("accessToken");
     const response = await instance.put("/auth/profile-update/", formData, {
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         "Content-Type": "multipart/form-data",
       },
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("Error in updating user info", error);
     throw error;
   }
 };
