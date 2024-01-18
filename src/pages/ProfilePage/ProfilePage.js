@@ -20,6 +20,7 @@ const ProfilePage = () => {
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [email, setEmail] = useState("");
+  const [modal, setModal] = useState(false);
 
   const { state } = useLocation();
   const username = state && state.username;
@@ -27,12 +28,6 @@ const ProfilePage = () => {
   useEffect(() => {
     setEmail(state && state.email);
   }, [state]);
-
-  // const dispatch = useDispatch();
-  // const email = useSelector((state) => state.profile.email);
-  // const userImage = useSelector((state) => state.profile.image);
-
-  const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -67,15 +62,6 @@ const ProfilePage = () => {
     setImage(selectedImg);
     console.log(e.target.files[0]);
     setPreviewImage(URL.createObjectURL(selectedImg));
-
-    // const reader = new FileReader();
-
-    // reader.onloadend = () => {
-    //   setImage(reader.result);
-    // };
-    // reader.readAsDataURL(selectedImg);
-
-    // dispatch(setImage(URL.createObjectURL(selectedImg)));
   };
 
   useEffect(() => {

@@ -86,9 +86,6 @@ export const Logout = async (data) => {
 
 export const addProduct = async (formData) => {
   try {
-    // const accessToken = localStorage.getItem("accessToken");
-    // console.log("Access token:", accessToken);
-
     const accessToken = localStorage.getItem("accessToken");
 
     const response = await instance.post(

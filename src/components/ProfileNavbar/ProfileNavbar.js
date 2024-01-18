@@ -67,7 +67,7 @@ const ProfileNavbar = ({ userProducts }) => {
             <img src={favorites} alt="Favorites" />
             <p className="item-title">Понравившиеся</p>
           </div>
-          <img src={profileArrow} alt="An arrow" />
+          <img src={profileArrow} alt="The profile" />
         </div>
       </Link>
 
@@ -80,7 +80,7 @@ const ProfileNavbar = ({ userProducts }) => {
             <img src={myGoods} alt="My goods" />
             <p className="item-title">Мои товары</p>
           </div>
-          <img src={profileArrow} alt="An arrow" />
+          <img src={profileArrow} alt="The profile choose" />
         </div>
       </Link>
 
@@ -89,7 +89,7 @@ const ProfileNavbar = ({ userProducts }) => {
           <img src={logout} alt="Logout" />
           <p className="item-title">Выйти</p>
         </div>
-        <img src={profileArrow} alt="" An arrow />
+        <img src={profileArrow} alt="The profile choose" />
       </div>
 
       {modal && (
